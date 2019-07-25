@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>验证码测试网页</title>
+<script type="text/javascript">
+	/**刷新验证码*/
+	function refreshCode() {
+		alert('xxx');
+		//1.获取image标签
+		var imgTag = document.getElementById('code');
+		//2.获取image标签src属性值
+		console.log(imgTag.src);
+
+		//3.重新赋值
+		//改的值与原本的src一致，js就不会去访问后台
+		imgTag.src = '/Servlet/Verification/Test?' + new Date().getTime();
+	}
+</script>
+</head>
+<body>
+
+<form action="">
+    用户名:<input type="text"><br>
+    密码: <input type="password"><br>
+    <!--src下面要添加项目名称   -->
+    验证码:<input type="text">
+    <img id="code" alt="photo" src="/Servlet/Verification/Test">
+    <!-- 怎么在a标签中，调用js -->
+    <a href="javascript:refreshCode();">看不清，点击换个验证码</a>
+    <br>
+</form>
+
+</body>
+</html>
