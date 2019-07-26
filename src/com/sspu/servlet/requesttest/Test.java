@@ -141,6 +141,7 @@ public class Test extends HttpServlet {
 
         /**
          * 5.getInputStream 【以字节读请求参数】
+         * 用于doPost方法
          */
         System.out.println(".....");
         ServletInputStream is = request.getInputStream();
@@ -156,6 +157,7 @@ public class Test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("666");
+        request.getContextPath();
         /** 获取客户端信息*/
         information(request, response);
         System.out.println("==================");
