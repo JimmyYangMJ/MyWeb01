@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆界面get请求</title>
+<script type="text/javascript">
+    //js的登录方法
+    function login() {
+        //使用ajax往servlet发送get请求
+        //1.获取表单的数据
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        //2.拼接表单数据
+        var params = 'username=' + username + '&password=' + password;
+        console.log(params);
+
+        //3.url
+        var url = 'ajax/ServletTest/LoginServlet?' + params;
+        console.log(url);
+
+        // 4.使用ajax发送get请求
+        //4.1 创建一个请求对象
+        var request = new XMLHttpRequest();
+
+        //4.2 调用 get请求的方法
+        // 调用open方法的时候，都用异步,true
+        request.open('get',url,true);
+        request.send();
+
+        //4.3 接收服务的响应
+        request.onreadystatechange = function(){
+            console.log('准备状态码-' + request.readyState + ' : 响应状态码-' + request.status);
+            /** ajax准备状态码
+                request.readyState
+            0: 请求未初始化
+            1: 服务器连接已建立
+            2: 请求已接收
+            3: 请求处理中
+            4: 请求已完成，且响应已就绪  */
+
+            if(request.readyState == 4 && request.status == 200){
+                //接收服务器响应的数据
+                var rspText = request.responseText;
+                console.log(rspText);
+
+                //获取span标签
+                var tipTag = document.getElementById('tip');
+                if(rspText == 'success'){
+                    tipTag.innerHTML = '登录成功 '; // innerHTML 在标签中插入内容
+                }else{
+                    tipTag.innerHTML = '登录失败';
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+<!-- <form action="ajax/ServletTest/LoginServlet" method="get">
+    用户名: <input type="text" name="username"><br>
+    密码:<input type="password" name="password"><br>
+    <input type="submit" value="登录">
+</form> -->
+<span style="color: red" id="tip"></span>
+
+<form>
+    用户名: <input type="text" name="username" id="username"><br>
+    密码:<input type="password" name="password" id="password"><br>
+    <input type="button" value="登录" onclick="login()">
+</form>
+</body>
+</html>
